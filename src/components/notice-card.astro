@@ -1,0 +1,51 @@
+---
+import InfoBulletList from "@/components/info-bullet-list.astro"
+
+interface Step {
+  label: string
+  body: string
+}
+
+interface Props {
+  title: string
+  tone?: "accent" | "bad" | "neutral"
+  items?: string[]
+  steps?: Step[]
+}
+
+const { title, tone = "neutral", items = [], steps = [] } = Astro.props
+
+const toneClasses = {
+  accent: {
+    wrapper: "border-accent/30 bg-accent/5",
+    title: "text-accent",
+  },
+  bad: {
+    wrapper: "border-bad/30 bg-bad/5",
+    title: "text-bad",
+  },
+  neutral: {
+    wrapper: "border-border bg-surface/85",
+    title: "text-muted",
+  },
+}
+
+const currentTone = toneClasses[tone]
+---
+
+<div class:list={["rounded-[28px] border p-6", currentTone.wrapper]}>
+  <p class:list={["font-mono text-xs uppercase tracking-[0.24em]", currentTone.title]}>{title}</p>
+  {items.length > 0 && <InfoBulletList items={items} tone={tone === "bad" ? "bad" : "accent"} />}
+  {
+    steps.length > 0 && (
+      <div class="mt-4 space-y-3">
+        {steps.map((step) => (
+          <div class="rounded-xl border border-border bg-background p-4">
+            <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">{step.label}</p>
+            <p class="mt-2 text-sm text-foreground">{step.body}</p>
+          </div>
+        ))}
+      </div>
+    )
+  }
+</div>

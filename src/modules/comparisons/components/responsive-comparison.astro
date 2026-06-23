@@ -1,0 +1,82 @@
+---
+import ComparisonSlider from "@/components/comparison-slider.astro"
+import { controlButtonClass } from "@/modules/comparisons/scripts/constants"
+---
+
+<ComparisonSlider
+  index={6}
+  badge="Principio 06"
+  title="Diseño adaptable (responsive)"
+  description="Los elementos deben adaptarse a cualquier pantalla. Cambia de dispositivo: el lado correcto reorganiza el contenido; el otro mantiene un ancho fijo y desborda."
+  demo="viewport"
+  theory="Hoy se navega desde móviles, tablets y escritorios de todos los tamaños. Un diseño responsive usa unidades flexibles, retículas fluidas y media queries para reorganizar el contenido según el espacio disponible. El enfoque «mobile-first» parte de la pantalla más pequeña y va añadiendo complejidad hacia arriba."
+  doList={[
+    "Usar unidades relativas (%, rem, fr) en lugar de píxeles fijos",
+    "Aplicar media queries para reorganizar el layout",
+    "Diseñar primero para móvil (mobile-first)",
+    "Imágenes y retículas fluidas que se adaptan",
+  ]}
+  dontList={[
+    "Anchos fijos en píxeles que provocan scroll horizontal",
+    "Un único layout pensado solo para escritorio",
+    "Texto y botones demasiado pequeños en móvil",
+    "No probar en distintos tamaños de pantalla",
+  ]}
+>
+  <div slot="bien" class="flex h-full items-center justify-center bg-surface p-6 pt-14">
+    <div class="overflow-hidden rounded-xl border-2 border-border bg-background" data-frame style="width:320px">
+      <div class="border-b border-border px-3 py-2">
+        <p class="text-sm font-semibold">Tienda Nova</p>
+      </div>
+      <div class="flex flex-wrap gap-2 p-3">
+        <div class="min-w-[90px] flex-1 rounded-md border border-border p-2">
+          <div class="mb-2 h-10 rounded bg-accent/20"></div>
+          <p class="text-xs">Producto A</p>
+        </div>
+        <div class="min-w-[90px] flex-1 rounded-md border border-border p-2">
+          <div class="mb-2 h-10 rounded bg-accent/20"></div>
+          <p class="text-xs">Producto B</p>
+        </div>
+        <div class="min-w-[90px] flex-1 rounded-md border border-border p-2">
+          <div class="mb-2 h-10 rounded bg-accent/20"></div>
+          <p class="text-xs">Producto C</p>
+        </div>
+        <button class="mt-1 w-full rounded-md bg-accent py-2.5 text-sm font-medium text-accent-foreground">Comprar</button>
+      </div>
+    </div>
+  </div>
+
+  <div slot="mal" class="flex h-full items-center justify-center bg-surface p-6 pt-14">
+    <div class="overflow-x-auto rounded-xl border-2 border-bad/40 bg-background" data-frame style="width:320px">
+      <div class="w-[680px]">
+        <div class="border-b border-border px-3 py-2">
+          <p class="text-sm font-semibold">Tienda Nova</p>
+        </div>
+        <div class="flex gap-2 p-3">
+          <div class="w-[200px] shrink-0 rounded-md border border-bad/40 p-2">
+            <div class="mb-2 h-10 rounded bg-bad/20"></div>
+            <p class="text-[10px]">Producto A</p>
+          </div>
+          <div class="w-[200px] shrink-0 rounded-md border border-bad/40 p-2">
+            <div class="mb-2 h-10 rounded bg-bad/20"></div>
+            <p class="text-[10px]">Producto B</p>
+          </div>
+          <div class="w-[200px] shrink-0 rounded-md border border-bad/40 p-2">
+            <div class="mb-2 h-10 rounded bg-bad/20"></div>
+            <p class="text-[10px]">Producto C</p>
+          </div>
+        </div>
+        <div class="px-3 pb-3">
+          <button class="h-5 w-20 rounded bg-bad text-[9px] text-bad-foreground">Comprar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="control">
+    <span class="font-mono text-xs text-muted">Dispositivo:</span>
+    <button class={controlButtonClass} data-device="mobile">Móvil</button>
+    <button class={controlButtonClass} data-device="tablet">Tablet</button>
+    <button class={controlButtonClass} data-device="desktop">Escritorio</button>
+  </div>
+</ComparisonSlider>

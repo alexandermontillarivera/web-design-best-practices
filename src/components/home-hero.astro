@@ -1,0 +1,45 @@
+---
+import PrinciplesNav from "@/components/principles-nav.astro"
+
+interface PrincipleLink {
+  title: string
+  anchor: number
+}
+
+interface Props {
+  items: PrincipleLink[]
+}
+
+const { items } = Astro.props
+---
+
+<header class="relative overflow-hidden border-b border-border">
+  <div class="grid-bg pointer-events-none absolute inset-0"></div>
+  <div class="relative mx-auto max-w-5xl px-5 pt-16 pb-14 sm:pt-24 sm:pb-20">
+    <div class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+      <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent"></span>
+      Ingeniería del Diseño Web
+    </div>
+    <h1 class="mt-5 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
+      Bien vs. Mal
+      <span class="text-muted">implementado</span>
+    </h1>
+    <p class="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-muted sm:text-lg">
+      Cada tarjeta es una demo en vivo: usa los controles para disparar el comportamiento y
+      arrastra el divisor para comparar, lado a lado, una implementación correcta frente a una
+      incorrecta de los 6 principios del diseño de páginas web.
+    </p>
+
+    <div class="mt-7 flex flex-wrap items-center gap-3 text-sm">
+      <span class="inline-flex items-center gap-2 rounded-md border border-accent/30 bg-accent/10 px-3 py-1.5 font-mono text-accent">
+        <span class="h-2 w-2 rounded-full bg-accent"></span> Bien
+      </span>
+      <span class="inline-flex items-center gap-2 rounded-md border border-bad/30 bg-bad/10 px-3 py-1.5 font-mono text-bad">
+        <span class="h-2 w-2 rounded-full bg-bad"></span> Mal
+      </span>
+      <span class="font-mono text-xs text-muted">arrastra el mango para comparar</span>
+    </div>
+
+    <PrinciplesNav items={items} />
+  </div>
+</header>

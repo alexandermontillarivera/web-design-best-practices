@@ -1,0 +1,114 @@
+---
+import ComparisonTheory from "@/components/comparison-theory.astro"
+
+interface Props {
+  index: number
+  badge: string
+  title: string
+  description: string
+  demo?: string
+  theory?: string
+  doList?: string[]
+  dontList?: string[]
+}
+
+const { index, badge, title, description, demo, theory, doList = [], dontList = [] } = Astro.props
+const id = `cmp-${index}`
+const hasControl = Astro.slots.has("control")
+const hasTheory = Boolean(theory) || doList.length > 0 || dontList.length > 0
+---
+
+<section class="scroll-mt-24" id={`principio-${index}`}>
+  <div class="mb-5 flex items-start gap-4">
+    <span
+      class="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border bg-surface font-mono text-sm text-muted"
+    >
+      {String(index).padStart(2, "0")}
+    </span>
+    <div>
+      <p class="font-mono text-xs uppercase tracking-widest text-accent">{badge}</p>
+      <h2 class="mt-1 text-pretty text-2xl font-semibold sm:text-3xl">{title}</h2>
+      <p class="mt-2 max-w-2xl text-pretty leading-relaxed text-muted">{description}</p>
+    </div>
+  </div>
+
+  <div
+    class="comparison group relative w-full select-none overflow-hidden rounded-xl border border-border bg-surface"
+    data-comparison
+    data-demo={demo}
+    id={id}
+  >
+    <div class="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-center justify-between p-3">
+      <span
+        class="rounded-md border border-accent/30 bg-accent/15 px-2.5 py-1 font-mono text-xs font-medium text-accent backdrop-blur-sm"
+      >
+        BIEN IMPLEMENTADO
+      </span>
+      <span
+        class="rounded-md border border-bad/30 bg-bad/15 px-2.5 py-1 font-mono text-xs font-medium text-bad backdrop-blur-sm"
+      >
+        MAL IMPLEMENTADO
+      </span>
+    </div>
+
+    <div class="relative h-full w-full">
+      <slot name="mal" />
+    </div>
+
+    <div class="clip-layer absolute inset-0 z-10 h-full w-full overflow-hidden" data-clip>
+      <slot name="bien" />
+    </div>
+
+    <div
+      class="absolute inset-y-0 z-20 w-px -translate-x-1/2 bg-foreground/40"
+      data-divider
+      style="left: 50%"
+    >
+      <button
+        type="button"
+        data-handle
+        aria-label="Arrastrar para comparar"
+        class="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border border-border bg-foreground text-background shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m15 18-6-6 6-6" />
+          <path d="m9 6 6 6-6 6" transform="translate(0,0)" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  {
+    hasControl && (
+      <div class="mt-3 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3">
+        <slot name="control" />
+      </div>
+    )
+  }
+
+  {
+    hasTheory && (
+      <ComparisonTheory theory={theory} doList={doList} dontList={dontList} />
+    )
+  }
+</section>
+
+<style>
+  .comparison {
+    height: 400px;
+  }
+  @media (min-width: 640px) {
+    .comparison {
+      height: 460px;
+    }
+  }
+  .clip-layer {
+    clip-path: inset(0 50% 0 0);
+  }
+  .theory summary::-webkit-details-marker {
+    display: none;
+  }
+  .theory[open] .theory-chevron {
+    transform: rotate(180deg);
+  }
+</style>

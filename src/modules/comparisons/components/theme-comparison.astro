@@ -1,0 +1,63 @@
+---
+import ComparisonSlider from "@/components/comparison-slider.astro"
+import { controlButtonClass } from "@/modules/comparisons/scripts/constants"
+---
+
+<ComparisonSlider
+  index={2}
+  badge="Principio 02"
+  title="Consistencia"
+  description="Colores, formas e iconos deben mantenerse uniformes. Cambia el tema y observa cómo el lado correcto cambia en bloque mientras el otro se descuadra."
+  demo="theme"
+  theory="La consistencia reduce la carga cognitiva: si los botones, colores y patrones se comportan igual en todo el sitio, el usuario aprende una vez y aplica ese conocimiento en todas partes. Un sistema de diseño con tokens (variables) garantiza que un solo cambio se propague de forma uniforme."
+  doList={[
+    "Definir tokens de color, radio y tipografía reutilizables",
+    "Mismos componentes para las mismas acciones",
+    "Iconografía y espaciado uniformes",
+    "Soportar temas (claro/oscuro) desde variables centralizadas",
+  ]}
+  dontList={[
+    "Colores «hardcodeados» en cada componente",
+    "Botones con formas y tamaños distintos para lo mismo",
+    "Mezclar estilos de iconos sin criterio",
+    "Romper el diseño al cambiar de tema",
+  ]}
+>
+  <div slot="bien" class="theme-surface h-full bg-surface p-6 pt-14" data-theme-scope data-theme="dark">
+    <div class="grid grid-cols-2 gap-3">
+      {
+        ["Guardar", "Editar", "Compartir", "Eliminar"].map((label) => (
+          <button class="theme-surface rounded-md border border-border bg-background px-4 py-3 text-sm font-medium theme-text">
+            {label}
+          </button>
+        ))
+      }
+    </div>
+    <div class="mt-5 flex gap-3">
+      <div class="theme-surface h-12 w-12 rounded-md border border-border bg-background"></div>
+      <div class="theme-surface h-12 w-12 rounded-md border border-border bg-background"></div>
+      <div class="theme-surface h-12 w-12 rounded-md border border-border bg-background"></div>
+    </div>
+    <p class="mt-5 font-mono text-xs text-accent">✓ Todo comparte color, forma y radio</p>
+  </div>
+
+  <div slot="mal" class="theme-surface h-full bg-surface p-6 pt-14" data-theme-scope data-theme="dark">
+    <div class="grid grid-cols-2 gap-3">
+      <button class="rounded-full px-4 py-3 text-sm" style="background:#b91c1c;color:#fff">Guardar</button>
+      <button class="theme-surface rounded-none border-2 border-foreground bg-background px-2 py-1 text-xs theme-text">EDITAR</button>
+      <button class="rounded-md px-6 py-2 text-base italic" style="background:#15803d;color:#fff">compartir</button>
+      <button class="rounded-sm px-3 py-4 text-sm underline" style="background:#a3a3a3;color:#111">Eliminar!!</button>
+    </div>
+    <div class="mt-5 flex items-end gap-3">
+      <div class="h-10 w-14 rounded-full border-2 border-bad" style="background:#2563eb"></div>
+      <div class="theme-surface h-14 w-8 rounded-none border border-foreground bg-background"></div>
+      <div class="h-8 w-16 rounded-xl" style="background:#f59e0b"></div>
+    </div>
+    <p class="mt-5 font-mono text-xs text-bad/90">✕ Colores fijos: el tema se rompe</p>
+  </div>
+
+  <div slot="control">
+    <span class="font-mono text-xs text-muted">Tema:</span>
+    <button class={controlButtonClass} data-action="theme">Cambiar a modo claro</button>
+  </div>
+</ComparisonSlider>

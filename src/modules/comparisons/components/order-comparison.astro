@@ -1,0 +1,58 @@
+---
+import ComparisonSlider from "@/components/comparison-slider.astro"
+import { controlButtonClass } from "@/modules/comparisons/scripts/constants"
+---
+
+<ComparisonSlider
+  index={4}
+  badge="Principio 04"
+  title="Organización del contenido"
+  description="Una jerarquía visual clara define qué es más importante. Activa el orden de lectura: a la izquierda fluye 1→2→3; a la derecha el ojo salta sin rumbo."
+  demo="order"
+  theory="La jerarquía visual guía la mirada en el orden correcto usando tamaño, peso, color y espacio. Cuando todo tiene la misma importancia visual, nada destaca y el usuario debe esforzarse para entender qué leer primero. Una buena organización comunica el mensaje incluso antes de leer una sola palabra."
+  doList={[
+    "Escalar el tamaño según la importancia (título > subtítulo > cuerpo)",
+    "Usar el espacio en blanco para agrupar y separar",
+    "Una sola llamada a la acción principal destacada",
+    "Alinear elementos en una retícula clara",
+  ]}
+  dontList={[
+    "Mismo tamaño y peso para todo el texto",
+    "Elementos dispersos sin alineación",
+    "Varias llamadas a la acción compitiendo entre sí",
+    "Saturar sin jerarquía ni espacios de respiro",
+  ]}
+>
+  <div slot="bien" class="relative h-full bg-surface p-6 pt-14" data-order-scope data-show-order="false">
+    <span class="order-badge absolute left-3 top-12 flex h-6 w-6 items-center justify-center rounded-full bg-accent font-mono text-xs text-accent-foreground">1</span>
+    <h3 class="ml-7 text-2xl font-bold">Zapatillas Nova</h3>
+    <span class="order-badge absolute left-3 top-[5.5rem] flex h-6 w-6 items-center justify-center rounded-full bg-accent font-mono text-xs text-accent-foreground">2</span>
+    <p class="ml-7 mt-1 text-sm font-medium text-accent">Edición limitada 2026</p>
+    <span class="order-badge absolute left-3 top-[8rem] flex h-6 w-6 items-center justify-center rounded-full bg-accent font-mono text-xs text-accent-foreground">3</span>
+    <p class="ml-7 mt-3 text-sm leading-relaxed text-muted">
+      Diseño ligero y transpirable para uso diario. La jerarquía guía la lectura de lo más
+      importante a lo secundario sin esfuerzo.
+    </p>
+    <span class="order-badge absolute bottom-6 left-3 flex h-6 w-6 items-center justify-center rounded-full bg-accent font-mono text-xs text-accent-foreground">4</span>
+    <button class="ml-7 mt-4 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground">Comprar ahora</button>
+  </div>
+
+  <div slot="mal" class="relative h-full bg-surface p-6 pt-14" data-order-scope data-show-order="false">
+    <span class="order-badge absolute right-6 top-12 flex h-6 w-6 items-center justify-center rounded-full bg-bad font-mono text-xs text-bad-foreground">3</span>
+    <p class="text-base font-bold">Zapatillas Nova</p>
+    <span class="order-badge absolute left-3 top-[7rem] flex h-6 w-6 items-center justify-center rounded-full bg-bad font-mono text-xs text-bad-foreground">1</span>
+    <p class="text-base font-bold">Edición limitada 2026</p>
+    <span class="order-badge absolute right-10 top-[10rem] flex h-6 w-6 items-center justify-center rounded-full bg-bad font-mono text-xs text-bad-foreground">4</span>
+    <p class="text-base font-bold">
+      Diseño ligero y transpirable para uso diario con el mismo tamaño y peso que todo lo demás.
+    </p>
+    <span class="order-badge absolute bottom-10 left-1/2 flex h-6 w-6 items-center justify-center rounded-full bg-bad font-mono text-xs text-bad-foreground">2</span>
+    <p class="text-base font-bold underline">Comprar ahora</p>
+    <p class="mt-3 font-mono text-xs text-bad/90">✕ Todo pesa igual: nada destaca</p>
+  </div>
+
+  <div slot="control">
+    <button class={controlButtonClass} data-action="order">Mostrar orden de lectura</button>
+    <span class="font-mono text-xs text-muted">El número indica qué se lee primero</span>
+  </div>
+</ComparisonSlider>

@@ -1,0 +1,98 @@
+---
+import ComparisonSlider from "@/components/comparison-slider.astro"
+import { controlButtonClass } from "@/modules/comparisons/scripts/constants"
+---
+
+<ComparisonSlider
+  index={3}
+  badge="Principio 03"
+  title="Tiempo de respuesta"
+  description="Una WebApp lenta frustra. Pulsa «Recargar» para ver cómo el lado optimizado aparece al instante mientras el otro deja al usuario mirando esqueletos y spinners."
+  demo="timing"
+  theory="La percepción de velocidad define la experiencia. Estudios clásicos de usabilidad marcan tres umbrales: hasta 0,1 s se siente instantáneo, hasta 1 s el flujo de pensamiento se mantiene y a partir de 10 s el usuario pierde la atención. Optimizar imágenes, cachear y mostrar contenido progresivamente mantiene al usuario enganchado."
+  doList={[
+    "Comprimir y servir imágenes en formatos modernos (WebP/AVIF)",
+    "Mostrar contenido por partes en lugar de esperar a todo",
+    "Cachear recursos y usar carga diferida (lazy loading)",
+    "Dar feedback inmediato a cada acción del usuario",
+  ]}
+  dontList={[
+    "Servir imágenes pesadas sin comprimir",
+    "Bloquear la pantalla hasta cargar todo",
+    "Esqueletos o spinners eternos sin progreso real",
+    "No optimizar peticiones ni recursos",
+  ]}
+>
+  <div slot="bien" class="flex h-full flex-col bg-surface p-6 pt-14" data-timing="bien">
+    <div class="mb-2 flex items-baseline justify-between">
+      <span class="font-mono text-xs text-muted">Tiempo de carga</span>
+      <span class="font-mono text-2xl font-bold text-accent" data-timer>0.0s</span>
+    </div>
+    <div class="mb-5 h-1.5 w-full overflow-hidden rounded-full bg-background">
+      <div class="h-full rounded-full bg-accent" style="width:0%" data-progress></div>
+    </div>
+    <div class="space-y-3" data-skeleton>
+      <div class="flex items-center gap-3">
+        <div class="skeleton h-10 w-10 rounded-full"></div>
+        <div class="flex-1 space-y-2">
+          <div class="skeleton h-3 w-1/2"></div>
+          <div class="skeleton h-3 w-1/3"></div>
+        </div>
+      </div>
+      <div class="skeleton h-24 w-full"></div>
+    </div>
+    <div class="space-y-3 demo-hidden" data-content>
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-full bg-accent/30"></div>
+        <div>
+          <p class="text-sm font-semibold">Tienda Nova</p>
+          <p class="font-mono text-xs text-muted">@tienda · ahora</p>
+        </div>
+      </div>
+      <div class="flex h-24 w-full items-center justify-center rounded-md bg-accent/15 text-sm text-accent">
+        Imagen optimizada (WebP, 90 KB)
+      </div>
+      <button class="w-full rounded-md bg-accent py-2 text-sm font-medium text-accent-foreground">Ver más</button>
+    </div>
+  </div>
+
+  <div slot="mal" class="flex h-full flex-col bg-surface p-6 pt-14" data-timing="mal">
+    <div class="mb-2 flex items-baseline justify-between">
+      <span class="font-mono text-xs text-muted">Tiempo de carga</span>
+      <span class="font-mono text-2xl font-bold text-bad" data-timer>0.0s</span>
+    </div>
+    <div class="mb-5 h-1.5 w-full overflow-hidden rounded-full bg-background">
+      <div class="h-full rounded-full bg-bad" style="width:0%" data-progress></div>
+    </div>
+    <div class="relative space-y-3" data-skeleton>
+      <div class="absolute right-0 top-0 h-6 w-6 spinner"></div>
+      <div class="flex items-center gap-3">
+        <div class="skeleton h-10 w-10 rounded-full"></div>
+        <div class="flex-1 space-y-2">
+          <div class="skeleton h-3 w-1/2"></div>
+          <div class="skeleton h-3 w-1/3"></div>
+        </div>
+      </div>
+      <div class="skeleton h-24 w-full"></div>
+      <p class="font-mono text-xs text-bad/80">Cargando imagen de 8 MB…</p>
+    </div>
+    <div class="space-y-3 demo-hidden" data-content>
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-full bg-bad/30"></div>
+        <div>
+          <p class="text-sm font-semibold">Tienda Nova</p>
+          <p class="font-mono text-xs text-muted">@tienda · hace un rato</p>
+        </div>
+      </div>
+      <div class="flex h-24 w-full items-center justify-center rounded-md bg-bad/15 text-sm text-bad">
+        Imagen sin comprimir (JPG, 8 MB)
+      </div>
+      <button class="w-full rounded-md bg-bad py-2 text-sm font-medium text-bad-foreground">Por fin cargó</button>
+    </div>
+  </div>
+
+  <div slot="control">
+    <button class={controlButtonClass} data-action="reload">↻ Recargar página</button>
+    <span class="font-mono text-xs text-muted">Mismo contenido, distinta optimización</span>
+  </div>
+</ComparisonSlider>

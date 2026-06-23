@@ -1,0 +1,41 @@
+---
+interface Props {
+  items: string[]
+  title: string
+  tone: "accent" | "bad"
+  icon: string
+}
+
+const { items, title, tone, icon } = Astro.props
+
+const toneClasses = {
+  accent: {
+    wrapper: "border-accent/30 bg-accent/5",
+    heading: "text-accent",
+    dot: "bg-accent",
+  },
+  bad: {
+    wrapper: "border-bad/30 bg-bad/5",
+    heading: "text-bad",
+    dot: "bg-bad",
+  },
+}
+
+const currentTone = toneClasses[tone]
+---
+
+<div class:list={["rounded-lg border p-3", currentTone.wrapper]}>
+  <p class:list={["mb-2 flex items-center gap-2 font-mono text-xs font-medium", currentTone.heading]}>
+    <span>{icon}</span> {title}
+  </p>
+  <ul class="space-y-1.5">
+    {
+      items.map((item) => (
+        <li class="flex items-start gap-2 text-sm leading-relaxed text-foreground">
+          <span class:list={["mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full", currentTone.dot]} />
+          <span class="flex-1">{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>

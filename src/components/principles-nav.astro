@@ -1,0 +1,25 @@
+---
+interface PrincipleLink {
+  title: string
+  anchor: number
+}
+
+interface Props {
+  items: PrincipleLink[]
+}
+
+const { items } = Astro.props
+---
+
+<nav class="mt-10 flex flex-wrap gap-2" aria-label="Índice de principios">
+  {
+    items.map((item) => (
+      <a
+        href={`#principio-${item.anchor}`}
+        class="rounded-full border border-border bg-surface px-3 py-1.5 font-mono text-xs text-muted transition-colors hover:border-accent/50 hover:text-foreground"
+      >
+        {String(item.anchor).padStart(2, "0")} · {item.title}
+      </a>
+    ))
+  }
+</nav>

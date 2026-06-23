@@ -1,0 +1,65 @@
+---
+import ComparisonSlider from "@/components/comparison-slider.astro"
+import { controlButtonClass } from "@/modules/comparisons/scripts/constants"
+---
+
+<ComparisonSlider
+  index={5}
+  badge="Principio 05"
+  title="Compatibilidad entre navegadores"
+  description="El diseño debe verse igual en todos. Cambia de navegador: el lado correcto se mantiene; el otro se rompe en cualquiera que no sea Chrome."
+  demo="compat"
+  theory="Cada navegador interpreta el CSS y el HTML con pequeñas diferencias. Si solo pruebas en uno, parte de tus usuarios verá un sitio roto. La compatibilidad se logra usando estándares, prefijos cuando hace falta y probando en varios motores de renderizado (Blink, Gecko, WebKit)."
+  doList={[
+    "Usar CSS estándar y propiedades ampliamente soportadas",
+    "Probar en Chrome, Firefox, Safari y Edge",
+    "Añadir prefijos o fallbacks cuando sea necesario",
+    "Validar el HTML y el CSS",
+  ]}
+  dontList={[
+    "Diseñar y probar en un solo navegador",
+    "Depender de funciones experimentales sin fallback",
+    "Ignorar prefijos de proveedor",
+    "Asumir que «si funciona en Chrome, funciona en todos»",
+  ]}
+>
+  <div slot="bien" class="flex h-full flex-col bg-surface p-6 pt-14">
+    <p class="mb-4 font-mono text-xs text-accent" data-compat-bien-label>Renderizado en Chrome · correcto</p>
+    <div class="grid flex-1 grid-cols-2 gap-3">
+      <div class="compat-card flex flex-col gap-2 rounded-lg border border-border bg-background p-3">
+        <div class="h-16 rounded-md bg-accent/20"></div>
+        <div class="h-2 w-3/4 rounded bg-border"></div>
+        <div class="h-2 w-1/2 rounded bg-border"></div>
+      </div>
+      <div class="compat-card flex flex-col gap-2 rounded-lg border border-border bg-background p-3">
+        <div class="h-16 rounded-md bg-accent/20"></div>
+        <div class="h-2 w-3/4 rounded bg-border"></div>
+        <div class="h-2 w-1/2 rounded bg-border"></div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="mal" class="flex h-full flex-col bg-surface p-6 pt-14">
+    <p class="mb-4 font-mono text-xs text-bad" data-compat-mal-label>Renderizado en Chrome · correcto</p>
+    <div class="grid flex-1 grid-cols-2 gap-3" data-compat-render>
+      <div class="compat-card flex flex-col gap-2 rounded-lg border border-border bg-background p-3">
+        <div class="compat-img h-16 rounded-md bg-accent/20"></div>
+        <div class="h-2 w-3/4 rounded bg-border"></div>
+        <div class="h-2 w-1/2 rounded bg-border"></div>
+      </div>
+      <div class="compat-card flex flex-col gap-2 rounded-lg border border-border bg-background p-3">
+        <div class="compat-img h-16 rounded-md bg-accent/20"></div>
+        <div class="h-2 w-3/4 rounded bg-border"></div>
+        <div class="h-2 w-1/2 rounded bg-border"></div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="control">
+    <span class="font-mono text-xs text-muted">Navegador:</span>
+    <button class={controlButtonClass} data-browser="Chrome">Chrome</button>
+    <button class={controlButtonClass} data-browser="Firefox">Firefox</button>
+    <button class={controlButtonClass} data-browser="Safari">Safari</button>
+    <button class={controlButtonClass} data-browser="Edge">Edge</button>
+  </div>
+</ComparisonSlider>

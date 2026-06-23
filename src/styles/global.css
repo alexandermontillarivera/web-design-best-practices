@@ -1,0 +1,150 @@
+@import "@fontsource/geist/400.css";
+@import "@fontsource/geist/500.css";
+@import "@fontsource/geist/600.css";
+@import "@fontsource/geist/700.css";
+@import "@fontsource/geist/800.css";
+@import "@fontsource/geist-mono/400.css";
+@import "@fontsource/geist-mono/500.css";
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --color-background: oklch(0.145 0 0);
+  --color-foreground: oklch(0.985 0 0);
+
+  --color-surface: oklch(0.185 0 0);
+  --color-surface-foreground: oklch(0.985 0 0);
+
+  --color-border: oklch(0.27 0 0);
+  --color-muted: oklch(0.6 0 0);
+
+  --color-accent: oklch(0.72 0.16 145);
+  --color-accent-foreground: oklch(0.145 0 0);
+
+  --color-bad: oklch(0.62 0.21 22);
+  --color-bad-foreground: oklch(0.985 0 0);
+
+  --radius: 0.5rem;
+}
+
+html {
+  background-color: var(--color-background);
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--color-border) 45%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--color-border) 45%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 40%, transparent 100%);
+}
+
+@keyframes demo-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in oklch, var(--color-border) 70%, transparent);
+  border-radius: 6px;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklch, var(--color-muted) 35%, transparent),
+    transparent
+  );
+  animation: demo-shimmer 1.4s infinite;
+}
+
+@keyframes demo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spinner {
+  border: 2px solid color-mix(in oklch, var(--color-bad) 30%, transparent);
+  border-top-color: var(--color-bad);
+  border-radius: 50%;
+  animation: demo-spin 0.7s linear infinite;
+}
+
+@keyframes demo-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in {
+  animation: demo-fade-in 0.35s ease both;
+}
+
+.demo-hidden {
+  display: none !important;
+}
+
+.order-badge {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+[data-show-order="true"] .order-badge {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.compat-card {
+  transition: all 0.25s ease;
+}
+.is-broken .compat-card {
+  transform: rotate(-3deg) translateX(8px);
+  border-color: var(--color-bad) !important;
+  border-radius: 0 !important;
+}
+.is-broken .compat-stack {
+  display: block !important;
+}
+.is-broken .compat-img {
+  filter: grayscale(1) contrast(0.4);
+  background: repeating-linear-gradient(
+    45deg,
+    color-mix(in oklch, var(--color-bad) 25%, transparent),
+    color-mix(in oklch, var(--color-bad) 25%, transparent) 6px,
+    transparent 6px,
+    transparent 12px
+  ) !important;
+}
+
+.theme-surface {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+[data-theme="light"] .theme-surface {
+  background-color: oklch(0.96 0 0) !important;
+  color: oklch(0.2 0 0) !important;
+}
+[data-theme="light"] .theme-text {
+  color: oklch(0.25 0 0) !important;
+}
+[data-theme="light"] .theme-muted {
+  color: oklch(0.5 0 0) !important;
+}

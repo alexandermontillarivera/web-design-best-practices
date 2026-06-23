@@ -1,0 +1,57 @@
+---
+import ComparisonChecklist from "@/components/comparison-checklist.astro"
+
+interface Props {
+  theory?: string
+  doList?: string[]
+  dontList?: string[]
+}
+
+const { theory, doList = [], dontList = [] } = Astro.props
+---
+
+<details class="theory mt-3 overflow-hidden rounded-xl border border-border bg-surface">
+  <summary class="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-foreground">
+    <span class="flex items-center gap-2">
+      <svg
+        class="theory-chevron h-4 w-4 transition-transform"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+      ¿Por qué importa?
+    </span>
+    <span class="text-border">teoría</span>
+  </summary>
+  <div class="border-t border-border px-4 py-4">
+    {theory && <p class="max-w-2xl text-pretty text-sm leading-relaxed text-muted">{theory}</p>}
+    {
+      (doList.length > 0 || dontList.length > 0) && (
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          {doList.length > 0 && (
+            <ComparisonChecklist
+              items={doList}
+              title="Buenas prácticas"
+              tone="accent"
+              icon="✓"
+            />
+          )}
+          {dontList.length > 0 && (
+            <ComparisonChecklist
+              items={dontList}
+              title="Errores comunes"
+              tone="bad"
+              icon="✕"
+            />
+          )}
+        </div>
+      )
+    }
+  </div>
+</details>

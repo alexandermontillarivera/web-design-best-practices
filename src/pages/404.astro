@@ -1,0 +1,66 @@
+---
+import NoticeCard from "@/components/notice-card.astro"
+import SiteLayout from "@/layouts/site-layout.astro"
+
+const diagnostics = [
+  "La URL no coincide con ninguna ruta generada por Astro.",
+  "Un enlace pudo haber quedado obsoleto después de un cambio estructural.",
+  "La página puede haber sido movida a una sección distinta del proyecto.",
+]
+
+const recoverySteps = [
+  { label: "Paso 01", body: "Regresa al inicio y usa el índice de principios." },
+  { label: "Paso 02", body: "Revisa si la ruta fue copiada incompleta o con errores." },
+]
+---
+
+<SiteLayout
+  title="404 — Ruta fuera del mapa"
+  description="La página solicitada no existe o fue movida fuera del sistema de navegación."
+>
+  <main class="relative min-h-screen overflow-hidden">
+    <div class="grid-bg pointer-events-none absolute inset-0"></div>
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(91,190,98,0.12),transparent_34%),radial-gradient(circle_at_80%_20%,rgba(234,59,72,0.12),transparent_24%)]"></div>
+
+    <div class="relative mx-auto flex min-h-screen max-w-5xl items-center px-5 py-16">
+      <div class="grid w-full gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+        <section class="rounded-[28px] border border-border bg-surface/85 p-8 backdrop-blur-sm sm:p-10">
+          <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-muted">
+            <span class="inline-block h-2 w-2 rounded-full bg-bad"></span>
+            Error de navegación
+          </div>
+
+          <p class="mt-6 font-mono text-[11px] uppercase tracking-[0.28em] text-muted">Estado 404</p>
+          <h1 class="mt-3 max-w-3xl text-balance text-5xl font-extrabold leading-none tracking-tight sm:text-7xl">
+            Ruta fuera
+            <span class="block text-muted">del mapa</span>
+          </h1>
+          <p class="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted sm:text-lg">
+            La dirección que intentaste abrir no existe, fue retirada o quedó fuera del flujo
+            previsto. Vuelve al índice principal y retoma una trayectoria clara.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href="/"
+              class="inline-flex items-center rounded-md bg-accent px-4 py-2.5 font-mono text-sm font-medium text-accent-foreground transition-transform hover:scale-[1.02]"
+            >
+              Volver al inicio
+            </a>
+            <a
+              href="/#principio-1"
+              class="inline-flex items-center rounded-md border border-border bg-background px-4 py-2.5 font-mono text-sm text-muted transition-colors hover:border-accent/50 hover:text-foreground"
+            >
+              Ir a navegación
+            </a>
+          </div>
+        </section>
+
+        <aside class="flex flex-col gap-4">
+          <NoticeCard title="Diagnóstico" tone="bad" items={diagnostics} />
+          <NoticeCard title="Recuperación" tone="accent" steps={recoverySteps} />
+        </aside>
+      </div>
+    </div>
+  </main>
+</SiteLayout>

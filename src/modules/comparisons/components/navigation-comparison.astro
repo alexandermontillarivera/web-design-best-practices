@@ -1,0 +1,69 @@
+---
+import ComparisonSlider from "@/components/comparison-slider.astro"
+import { controlButtonClass } from "@/modules/comparisons/scripts/constants"
+---
+
+<ComparisonSlider
+  index={1}
+  badge="Principio 01"
+  title="Navegación"
+  description="Debe mostrar dónde está el usuario y ofrecer trayectorias claras. Pulsa una sección y observa cómo reacciona cada lado."
+  demo="nav"
+  theory="La navegación es el mapa de la web. Un buen sistema responde siempre a tres preguntas: ¿dónde estoy?, ¿dónde puedo ir? y ¿cómo vuelvo? Cuando estas señales faltan, el usuario se desorienta, pierde la confianza y abandona el sitio."
+  doList={[
+    "Resaltar la sección activa en el menú",
+    "Usar migas de pan (breadcrumbs) coherentes",
+    "Etiquetas de enlace descriptivas y predecibles",
+    "Mantener el menú en el mismo lugar en todas las páginas",
+  ]}
+  dontList={[
+    "Enlaces genéricos como «click aquí» o «página»",
+    "No indicar la ubicación actual del usuario",
+    "Rutas que llevan a errores 404",
+    "Reordenar el menú entre páginas",
+  ]}
+>
+  <div slot="bien" class="flex h-full flex-col bg-surface p-6 pt-14">
+    <nav class="mb-4 flex items-center gap-1 font-mono text-xs text-muted" data-nav-crumb></nav>
+    <div class="mb-5 flex flex-wrap gap-2">
+      <span data-nav-bien-tab="inicio" class="rounded-md border px-3 py-1.5 text-sm">Inicio</span>
+      <span data-nav-bien-tab="productos" class="rounded-md border px-3 py-1.5 text-sm">Productos</span>
+      <span data-nav-bien-tab="ofertas" class="rounded-md border px-3 py-1.5 text-sm">Ofertas</span>
+      <span data-nav-bien-tab="contacto" class="rounded-md border px-3 py-1.5 text-sm">Contacto</span>
+    </div>
+    <div class="rounded-lg border border-border bg-background p-4">
+      <h3 class="text-lg font-semibold" data-nav-title>Bienvenido</h3>
+      <p class="mt-1 text-sm text-muted" data-nav-body>Página principal de la tienda.</p>
+    </div>
+    <p class="mt-auto flex items-center gap-2 pt-4 font-mono text-xs text-accent">
+      <span>✓</span> Migas, sección activa y contenido coherente
+    </p>
+  </div>
+
+  <div slot="mal" class="flex h-full flex-col bg-surface p-6 pt-14">
+    <nav class="mb-4 flex items-center gap-1 font-mono text-xs text-bad/80">
+      <span>???</span><span class="text-border">/</span><span>???</span>
+    </nav>
+    <div class="mb-5 flex flex-wrap gap-2">
+      <span class="text-sm text-muted underline">enlace1</span>
+      <span class="text-sm text-muted underline">enlace2</span>
+      <span class="text-sm text-muted underline">click aquí</span>
+      <span class="text-sm text-muted underline">página</span>
+    </div>
+    <div class="rounded-lg border border-bad/40 bg-background p-4">
+      <h3 class="text-lg font-semibold text-bad" data-nav-mal-title>Página 8347?</h3>
+      <p class="mt-1 text-sm text-bad/80" data-nav-mal-body>ERROR 404 — recurso no encontrado</p>
+    </div>
+    <p class="mt-auto flex items-center gap-2 pt-4 font-mono text-xs text-bad/90">
+      <span>✕</span> Sin rumbo: no sabes dónde estás
+    </p>
+  </div>
+
+  <div slot="control">
+    <span class="font-mono text-xs text-muted">Ir a:</span>
+    <button class={controlButtonClass} data-nav-tab="inicio" aria-current="true">Inicio</button>
+    <button class={controlButtonClass} data-nav-tab="productos" aria-current="false">Productos</button>
+    <button class={controlButtonClass} data-nav-tab="ofertas" aria-current="false">Ofertas</button>
+    <button class={controlButtonClass} data-nav-tab="contacto" aria-current="false">Contacto</button>
+  </div>
+</ComparisonSlider>

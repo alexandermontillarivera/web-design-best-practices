@@ -1,0 +1,39 @@
+---
+import CompatibilityComparison from "@/modules/comparisons/components/compatibility-comparison.astro"
+import HomeHero from "@/components/home-hero.astro"
+import SiteFooter from "@/components/site-footer.astro"
+import SiteLayout from "@/layouts/site-layout.astro"
+import NavigationComparison from "@/modules/comparisons/components/navigation-comparison.astro"
+import OrderComparison from "@/modules/comparisons/components/order-comparison.astro"
+import ResponsiveComparison from "@/modules/comparisons/components/responsive-comparison.astro"
+import ThemeComparison from "@/modules/comparisons/components/theme-comparison.astro"
+import TimingComparison from "@/modules/comparisons/components/timing-comparison.astro"
+
+const comparisons = [
+  { title: "Navegación", anchor: 1, Component: NavigationComparison },
+  { title: "Consistencia", anchor: 2, Component: ThemeComparison },
+  { title: "Tiempo de respuesta", anchor: 3, Component: TimingComparison },
+  { title: "Organización del contenido", anchor: 4, Component: OrderComparison },
+  { title: "Compatibilidad", anchor: 5, Component: CompatibilityComparison },
+  { title: "Diseño adaptable", anchor: 6, Component: ResponsiveComparison },
+]
+---
+
+<SiteLayout>
+  <HomeHero items={comparisons} />
+
+  <main class="mx-auto max-w-5xl px-5 py-16 sm:py-20">
+    <div class="flex flex-col gap-20">
+      {
+        comparisons.map(({ Component }) => <Component />)
+      }
+    </div>
+  </main>
+
+  <SiteFooter />
+
+  <script>
+    import "@/scripts/comparison.ts"
+    import "@/modules/comparisons/scripts/boot.ts"
+  </script>
+</SiteLayout>
